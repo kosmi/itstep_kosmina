@@ -1,7 +1,6 @@
 <?php
 
 namespace itsep\Http\Controllers;
-
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -21,8 +20,15 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    
     public function index()
     {
-        return view('home');
+        $UserEmail = \Auth::user()->email;
+        return view('home')->with('UserEmail',$UserEmail );
     }
+    public function logout()
+    {
+        \Auth::logout();
+      return view('auth/login');
+      }
 }
