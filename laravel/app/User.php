@@ -26,4 +26,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+    public function subscribers() {
+        return $this->hasMany('itsep\Models\Subscriber'); // у одного пользователя может быть много подключений
+    }
 }

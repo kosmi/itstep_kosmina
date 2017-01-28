@@ -19,3 +19,9 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 Route::get('logout', 'HomeController@logout');
+Route::get('/model', 'HomeController@model');
+
+Route::group(['middleware'=>'auth'], function () {
+    Route::resource('subscribers', 'SubscriberController');
+});
+
