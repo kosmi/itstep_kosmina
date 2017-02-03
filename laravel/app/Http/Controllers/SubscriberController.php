@@ -40,10 +40,12 @@ class SubscriberController extends Controller {
             'last_name' => $request->get('last_name'),
             'email' => $request->get('email')
         ]);
+
     }
     public function lists(){
        
          $data['list']=SubscriberModel::where('user_id',\Auth::user()->id)->get()->toArray();
+         
          return view('subscribers.list',$data);
      }
 
@@ -64,8 +66,12 @@ class SubscriberController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit($id) {
-        //
+        var_dump($id);
+        $subscriber = SubscriberModel::find($id);
+        var_dump($subscriber);
+         return view('subscribers.edit', compact('subscriber'));
     }
+    
 
     /**
      * Update the specified resource in storage.
@@ -75,7 +81,14 @@ class SubscriberController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id) {
-        //
+         $Subscriber=SubscriberModel::find($id);
+        echo '<h4>Данные '.$request->get('email'). ' успешно обновлены</h4>';
+         $Subscriber['first_name']=$request->get('first_name');
+         $Subscriber['last_name']=$request->get('last_name');
+         $Subscriber['email']=$request->get('email');
+         $Subscriber->save();
+          $data['list']=SubscriberModel::where('user_id',\Auth::user()->id)->get()->toArray();
+          return view('subscribers.list',$data);
     }
 
     /**
