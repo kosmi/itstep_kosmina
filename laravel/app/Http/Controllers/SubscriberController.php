@@ -5,6 +5,7 @@ namespace itsep\Http\Controllers;
 use Illuminate\Http\Request;
 use itsep\Models\Subscriber as SubscriberModel; //подключаем модель,добавляем ей алиас SubscriberModel
 
+
 class SubscriberController extends Controller {
 
     /**
@@ -13,7 +14,7 @@ class SubscriberController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        //
+     
     }
 
     /**
@@ -40,6 +41,11 @@ class SubscriberController extends Controller {
             'email' => $request->get('email')
         ]);
     }
+    public function lists(){
+       
+         $data['list']=SubscriberModel::where('user_id',\Auth::user()->id)->get()->toArray();
+         return view('subscribers.list',$data);
+     }
 
     /**
      * Display the specified resource.
