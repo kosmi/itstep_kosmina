@@ -33,6 +33,11 @@ class SubscriberController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
+        //echo $request->has('first_name'); возвращает 1 если имеет указаный элемент
+        //print_r($request->only(['first_name'])); возвращает массив с указаным элементом
+        //print_r($request->except(['first_name'])); // возвращает массив сo всеми элементами кроме указаного
+        // или print_r(\Request::except(['first_name']))
+        //exit;
         $this->validator($request->all())->validate();
         SubscriberModel::create([
             'user_id' => \Auth::user()->id,
