@@ -4,6 +4,7 @@ namespace itsep\Http\Controllers;
 
 use Illuminate\Http\Request;
 use itsep\Models\Subscriber as SubscriberModel; //подключаем модель,добавляем ей алиас SubscriberModel
+use Illuminate\Database\Eloquent\SoftDeletes;//подключаем "мягкое" удаление
 
 
 class SubscriberController extends Controller {
@@ -92,8 +93,9 @@ class SubscriberController extends Controller {
          $Subscriber['last_name']=$request->get('last_name');
          $Subscriber['email']=$request->get('email');
          $Subscriber->save();
-          $data['list']=SubscriberModel::where('user_id',\Auth::user()->id)->get()->toArray();
-          return view('subscribers.list',$data);
+         $data['list']=SubscriberModel::where('user_id',\Auth::user()->id)->get()->toArray();
+         return view('subscribers.list',$data);
+       // return redirect('/list')->with(['flash_message'=>'Data '.$subscriber->email.' successfully update']);
     }
 
     /**
@@ -103,7 +105,13 @@ class SubscriberController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function destroy($id) {
-        //
+//        Subscriber::find($id)->delete();
+//        return redirect('subscribers');
+        $subscriber=  SubscriberModel::findOrFail($id);
+        $subscriber->delete();
+        $data['list']=SubscriberModel::where('user_id',\Auth::user()->id)->get()->toArray();
+        return view('subscribers.list',$data);
+       // return redirect()->back()->with(['flash_message'=>'Subscriber '.$list->email.' successfully deleted']);
     }
 
     protected function validator(array $data) {
