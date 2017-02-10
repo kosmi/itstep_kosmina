@@ -45,7 +45,11 @@ class SubscriberController extends Controller {
             'first_name' => $request->get('first_name'),
             'last_name' => $request->get('last_name'),
             'email' => $request->get('email')
+            
         ]);
+       $data['list']=SubscriberModel::where('user_id',\Auth::user()->id)->get()->toArray();
+         
+         return view('subscribers.list',$data);
 
     }
     public function lists(){
@@ -72,9 +76,9 @@ class SubscriberController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit($id) {
-        var_dump($id);
+        //var_dump($id);
         $subscriber = SubscriberModel::find($id);
-        var_dump($subscriber);
+        //var_dump($subscriber);
          return view('subscribers.edit', compact('subscriber'));
     }
     
@@ -88,7 +92,7 @@ class SubscriberController extends Controller {
      */
     public function update(Request $request, $id) {
          $Subscriber=SubscriberModel::find($id);
-        echo '<h4>Данные '.$request->get('email'). ' успешно обновлены</h4>';
+        echo '<h4>Data '.$request->get('email'). ' successfully update</h4>';
          $Subscriber['first_name']=$request->get('first_name');
          $Subscriber['last_name']=$request->get('last_name');
          $Subscriber['email']=$request->get('email');
@@ -108,6 +112,7 @@ class SubscriberController extends Controller {
 //        Subscriber::find($id)->delete();
 //        return redirect('subscribers');
         $subscriber=  SubscriberModel::findOrFail($id);
+       // echo '<h4>Subscriber '.$request->get('email'). ' successfully deleted</h4>';
         $subscriber->delete();
         $data['list']=SubscriberModel::where('user_id',\Auth::user()->id)->get()->toArray();
         return view('subscribers.list',$data);

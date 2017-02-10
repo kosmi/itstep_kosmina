@@ -23,7 +23,7 @@ Route::get('/model', 'HomeController@model');
 
 Route::group(['middleware'=>'auth'], function () {
     Route::resource('subscribers', 'SubscriberController');
-    Route::get('/list', 'SubscriberController@lists');
+    Route::get('/subscriber/list', 'SubscriberController@lists');
     Route::resource('lists', 'ListController');
 });
 
