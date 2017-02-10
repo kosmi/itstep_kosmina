@@ -7,16 +7,16 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Subscriber list</div>
+                <div class="panel-heading">{{trans('layouts.subscriberList')}}</div>
 
                 <div class="panel-body">
-                    <a href="{{ url('/subscribers/create') }}" class="btn btn-primary">Add new</a>
+                    <a href="{{ url('/subscribers/create') }}" class="btn btn-primary">{{trans('subscribers.addNew')}}</a>
 
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>Name</th>
-                                <th>Email</th>
+                                <th>{{trans('lists.name')}}</th>
+                                <th>{{trans('subscribers.email')}}</th>
                                 <th></th>
                                 <th></th>
 
@@ -30,7 +30,7 @@
                                 <td>{{$subscriber['email']}}</td>
                                 <td>
                                     <form action="{{ url('/subscribers/'.$subscriber['id'].'/edit')}}" method="get">
-                                        <input type="submit" value="Edit" class="btn btn-success">
+                                        <input type="submit" value="{{trans('subscribers.edit')}}" class="btn btn-success">
                                         {{ csrf_field() }}
                                     </form>
                                     <!--                                    <a href="{{ route('subscribers.edit', $subscriber['id']) }}" class="btn btn-success">Edit</a> -->
@@ -39,7 +39,7 @@
                                 <td>
                                     <form class="form-delete" method="post" action="{{ url('/subscribers/'.$subscriber['id']) }}">
                                         {{ method_field('DELETE') }}
-                                        <input type="submit" value="Delete" class="btn btn-danger">
+                                        <input type="submit" value="{{trans('lists.delete')}}" class="btn btn-danger">
                                         {{ csrf_field() }}
                                     </form>
                                 </td>

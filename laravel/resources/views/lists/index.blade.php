@@ -12,10 +12,10 @@
        <div class="panel-heading">
            <div class="row">
                <div class="col-md-10">
-                   Lists
+                   {{trans('lists.lists')}}
                </div>
                <div class="col-md-2">
-                   <a class="btn btn-default" href="{{url('/lists/create')}}">Add</a>
+                   <a class="btn btn-default" href="{{url('/lists/create')}}">{{trans('lists.add')}}</a>
                </div>
            </div>
        </div>
@@ -24,7 +24,7 @@
 
                    <!-- Table Headings -->
            <thead>
-           <th>Name</th>
+           <th>{{trans('lists.add')}}</th>
                 <th></th>
                 <th></th>
                    </thead>
@@ -39,7 +39,7 @@
                                     <form action="{{ url('/lists', $list->id)}}" method="POST">
                                     {{csrf_field()}}
                                     {{method_field('DELETE')}}
-                                    <button class="btn btn-danger">Delete</button>
+                                    <button class="btn btn-danger">{{trans('lists.delete')}}</button>
                                     </form>
                                 </td>
                             </td>

@@ -25,5 +25,12 @@ Route::group(['middleware'=>'auth'], function () {
     Route::resource('subscribers', 'SubscriberController');
     Route::get('/subscriber/list', 'SubscriberController@lists');
     Route::resource('lists', 'ListController');
+   
 });
+Route::post('/language-chooser', 'LanguageController@chooser');
+ Route::post('language', array( 
+	'before'=>'csrf',
+	'as' =>'language-chooser',
+	'uses'=>'LanguageController@chooser'
+	))->middleware('locale');
 
