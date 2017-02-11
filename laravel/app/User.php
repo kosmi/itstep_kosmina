@@ -29,4 +29,8 @@ class User extends Authenticatable
     public function subscribers() {
         return $this->hasMany('itsep\Models\Subscriber'); // у одного пользователя может быть много подключений
     }
+
+    public function lists() {
+        return $this->hasMany('itsep\Models\ListModel');
+    }
 }

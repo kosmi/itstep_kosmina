@@ -17,6 +17,13 @@ return [
     'mailgun' => [
         'domain' => env('MAILGUN_DOMAIN'),
         'secret' => env('MAILGUN_SECRET'),
+        'guzzle'=>[
+        'curl'=>[
+            CURLOPT_PROXY=>'10.3.0.9',
+            CURLOPT_PROXYPORT=>3128,
+            CURLOPT_PROXYUSERPWD=>'08901:a41194',
+        ],
+        ]
     ],
 
     'ses' => [

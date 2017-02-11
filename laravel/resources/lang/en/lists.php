@@ -7,6 +7,7 @@ return [
     'add'=>'Add',
     'lists'=>'Lists',
     'delete'=>'Delete',
+    'update'=>'Update',
 
 ];
 

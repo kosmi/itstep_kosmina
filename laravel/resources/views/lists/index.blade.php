@@ -34,7 +34,14 @@
                         @foreach($lists as $list)
                         <tr>
                             <td class="table-text">
-                                <div>{{$list->name}}</div>
+                                <div>{{$list->name}}</div></td>
+                                <td>
+                                  <form action="{{url('/lists',[$list->id, 'edit'])}}" method="post">
+                                    {{csrf_field()}}
+                                    {{method_field('GET')}}
+                                    <button class="btn btn-success">{{trans('lists.update')}}</button>
+                                  </form>
+                                </td>
                                 <td>
                                     <form action="{{ url('/lists', $list->id)}}" method="POST">
                                     {{csrf_field()}}
@@ -42,11 +49,12 @@
                                     <button class="btn btn-danger">{{trans('lists.delete')}}</button>
                                     </form>
                                 </td>
-                            </td>
+                            
                         </tr>
                         @endforeach
                    </tbody>
             </table>
+            {{$lists->links()}}
 
        </div>
    </div>

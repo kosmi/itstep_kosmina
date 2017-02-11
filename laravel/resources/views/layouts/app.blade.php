@@ -45,6 +45,7 @@
                         <ul class="nav navbar-nav">
                             @if (Auth::user())
                             <li><a href="{{ url('/subscriber/list') }}">{{trans('layouts.subscriberList')}}</a></li>
+                            <li><a href="{{ url('/lists') }}">Lists</a></li>
                             @endif
 
                             &nbsp;

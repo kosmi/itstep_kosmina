@@ -5,6 +5,7 @@ namespace itsep\Http\Controllers;
 use Illuminate\Http\Request;
 use itsep\Models\ListModel;
 use itsep\Http\Requests\Lists\Create as CreateRequest;
+use itsep\User as UserModel;
 
 class ListController extends Controller
 {
@@ -15,7 +16,8 @@ class ListController extends Controller
      */
     public function index()
     {
-       return view('lists.index', ['lists'=>ListModel::all()]);
+        $lists = UserModel::find(\Auth::user()->id)->lists()->paginate(5);
+       return view('lists.index', ['lists'=> $lists]);
     }
 
     /**
@@ -25,7 +27,7 @@ class ListController extends Controller
      */
     public function create()
     {
-        return view('lists.create');
+        return view('lists.create', ['list'=> new ListModel()]);
     }
 
     /**
@@ -62,7 +64,8 @@ class ListController extends Controller
      */
     public function edit($id)
     {
-        //
+        $list = ListModel::findOrFail($id);
+        return view('lists.create',['list'=>$list]);
     }
 
     /**
@@ -72,9 +75,14 @@ class ListController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CreateRequest $request, $id)
     {
-        //
+        $list = ListModel::findOrFail($id);
+        $list->fill($request->only([
+            'name'
+            ]));
+        $list->save();
+        return redirect('/lists')->with(['flash_message'=>'List '.$list->name.' successfully update']);
     }
 
     /**
@@ -83,9 +91,9 @@ class ListController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(ListModel $list)
     {
-        $list=ListModel::findOrFail($id);
+        // $list=ListModel::findOrFail($id);
         $list->delete();
         return redirect()->back()->with(['flash_message'=>'List '.$list->name.' successfully deleted']);
     }
