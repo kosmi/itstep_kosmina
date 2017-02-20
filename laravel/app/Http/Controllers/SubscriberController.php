@@ -15,7 +15,8 @@ class SubscriberController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
-     
+     $data['list']=SubscriberModel::where('user_id',\Auth::user()->id)->get()->toArray();
+        return view('subscribers.list',$data);
     }
 
     /**
@@ -24,7 +25,8 @@ class SubscriberController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function create() {
-        return view('subscribers.create');
+        //return view('subscribers.create');
+         return view('subscribers.create',['subscriber'=>new SubscriberModel()]);
     }
 
     /**
@@ -49,15 +51,15 @@ class SubscriberController extends Controller {
         ]);
        $data['list']=SubscriberModel::where('user_id',\Auth::user()->id)->get()->toArray();
          
-         return view('subscribers.list',$data);
+         return view('subscribers.list',['subscriber'=>new SubscriberModel()]);
 
     }
-    public function lists(){
-       
-         $data['list']=SubscriberModel::where('user_id',\Auth::user()->id)->get()->toArray();
-         
-         return view('subscribers.list',$data);
-     }
+//    public function lists(){
+//       
+//         $data['list']=SubscriberModel::where('user_id',\Auth::user()->id)->get()->toArray();
+//         
+//         return view('subscribers.list',$data);
+//     }
 
     /**
      * Display the specified resource.
@@ -77,9 +79,11 @@ class SubscriberController extends Controller {
      */
     public function edit($id) {
         //var_dump($id);
-        $subscriber = SubscriberModel::find($id);
+        //$subscriber = SubscriberModel::find($id);
         //var_dump($subscriber);
-         return view('subscribers.edit', compact('subscriber'));
+        // return view('subscribers.edit', compact('subscriber'));
+        $Subscriber=SubscriberModel::findOrFail($id);
+        return view('subscribers.create',['subscriber'=>$Subscriber]);
     }
     
 
@@ -92,7 +96,7 @@ class SubscriberController extends Controller {
      */
     public function update(Request $request, $id) {
          $Subscriber=SubscriberModel::find($id);
-        echo '<h4>Data '.$request->get('email'). ' successfully update</h4>';
+        //echo '<h4>Data '.$request->get('email'). ' successfully update</h4>';
          $Subscriber['first_name']=$request->get('first_name');
          $Subscriber['last_name']=$request->get('last_name');
          $Subscriber['email']=$request->get('email');

@@ -53,7 +53,11 @@ class ListController extends Controller
      */
     public function show($id)
     {
-        //
+         $list=ListModel::findOrFail($id);
+        $subscribers=SubscriberModel::find(\Auth::user()->id)->paginate(5);
+        $list_subscribers=$list->subscribers()->get();
+        
+        return view('lists.show',['subscribers'=>$subscribers,'list'=>$list,'list_subscribers'=>$list_subscribers]);
     }
 
     /**

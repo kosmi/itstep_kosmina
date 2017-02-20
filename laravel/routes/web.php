@@ -23,7 +23,7 @@ Route::get('/model', 'HomeController@model');
 
 Route::group(['middleware'=>'auth'], function () {
     Route::resource('subscribers', 'SubscriberController');
-    Route::get('/subscriber/list', 'SubscriberController@lists');
+    Route::get('/subscriber/list', 'SubscriberController@index');
     Route::resource('lists', 'ListController');
     Route::get('/send-email', 'SendController@form');
     Route::post('/send-email', 'SendController@send');
